@@ -1,0 +1,24 @@
+{
+  "name": "micropython-ili9341-xpt2046",
+  "version": "0.1.0",
+  "description": "Display and touch toolkit for MicroPython",
+  "urls": [
+    ["ili9341_xpt2046/__init__.py", "src/ili9341_xpt2046/__init__.py"],
+    ["ili9341_xpt2046/display/__init__.py", "src/ili9341_xpt2046/display/__init__.py"],
+    ["ili9341_xpt2046/display/display.py", "src/ili9341_xpt2046/display/display.py"],
+    ["ili9341_xpt2046/display/drivers/__init__.py", "src/ili9341_xpt2046/display/drivers/__init__.py"],
+    ["ili9341_xpt2046/display/drivers/ili9341.py", "src/ili9341_xpt2046/display/drivers/ili9341.py"],
+    ["ili9341_xpt2046/display/drivers/st7789.py", "src/ili9341_xpt2046/display/drivers/st7789.py"],
+    ["ili9341_xpt2046/display/drivers/gc9a01.py", "src/ili9341_xpt2046/display/drivers/gc9a01.py"],
+    ["ili9341_xpt2046/display/mixins/__init__.py", "src/ili9341_xpt2046/display/mixins/__init__.py"],
+    ["ili9341_xpt2046/display/mixins/geometry.py", "src/ili9341_xpt2046/display/mixins/geometry.py"],
+    ["ili9341_xpt2046/display/mixins/blit.py", "src/ili9341_xpt2046/display/mixins/blit.py"],
+    ["ili9341_xpt2046/display/mixins/text.py", "src/ili9341_xpt2046/display/mixins/text.py"],
+    ["ili9341_xpt2046/display/mixins/clipping.py", "src/ili9341_xpt2046/display/mixins/clipping.py"],
+    ["ili9341_xpt2046/display/mixins/transform.py", "src/ili9341_xpt2046/display/mixins/transform.py"],
+    ["ili9341_xpt2046/display/fonts/__init__.py", "src/ili9341_xpt2046/display/fonts/__init__.py"],
+    ["ili9341_xpt2046/input/__init__.py", "src/ili9341_xpt2046/input/__init__.py"],
+    ["ili9341_xpt2046/input/touch.py", "src/ili9341_xpt2046/input/touch.py"],
+    ["ili9341_xpt2046/input/xpt2046.py", "src/ili9341_xpt2046/input/xpt2046.py"]
+  ]
+}

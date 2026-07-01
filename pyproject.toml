@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "micropython-ili9341-xpt2046"
+version = "0.1.0"
+description = "Display and touch toolkit for MicroPython (ILI9341, ST7789, GC9A01, XPT2046)"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+  {name = "micropython-ili9341-xpt2046 contributors"}
+]
+keywords = ["micropython", "ili9341", "xpt2046", "st7789", "gc9a01", "embedded"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Embedded Systems"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ili9341_xpt2046*"]

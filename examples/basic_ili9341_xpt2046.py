@@ -38,7 +38,7 @@ driver = ILI9341Driver(
     rst=Pin(27, Pin.OUT),
     width=240,
     height=320,
-    rotation=270,
+    rotation=180,
 )
 
 display = Display(driver)
@@ -53,20 +53,53 @@ touch = XPT2046Touch(
     width=240,
     height=320,
     invert_x=True,
+    invert_y=True,
 )
 
 WHITE = color565(255, 255, 255)
 BLACK = color565(0, 0, 0)
 GREEN = color565(0, 255, 0)
 
+DOT_SIZE = 6
+DOT_RADIUS = DOT_SIZE // 2
+
+
+def make_solid_bitmap(width, height, color):
+    hi = (color >> 8) & 0xFF
+    lo = color & 0xFF
+    pixel = bytes((hi, lo))
+    return pixel * (width * height)
+
+
+def pop_latest_touch(queue):
+    point = queue.touches()
+    if point is None:
+        return None
+
+    while True:
+        nxt = queue.touches()
+        if nxt is None:
+            return point
+        point = nxt
+
 display.clear(BLACK)
-display.draw_text(10, 10, "micropython-ili9341-xpt2046", WHITE)
+display.draw_text(10, 10, "micropython-ili9341-xpt2046", WHITE, BLACK)
 display.draw_rect(10, 40, 220, 120, GREEN)
 
+dot_bitmap = make_solid_bitmap(DOT_SIZE, DOT_SIZE, WHITE)
+last_point = None
+
 while True:
-    point = touch_queue.touches()
+    point = pop_latest_touch(touch_queue)
     if point is None:
         continue
 
     x, y = point
-    display.fill_circle(x, y, 3, WHITE)
+
+    if last_point is not None:
+        lx, ly = last_point
+        if abs(x - lx) <= 1 and abs(y - ly) <= 1:
+            continue
+
+    display.draw_bitmap(x - DOT_RADIUS, y - DOT_RADIUS, dot_bitmap, DOT_SIZE, DOT_SIZE)
+    last_point = (x, y)

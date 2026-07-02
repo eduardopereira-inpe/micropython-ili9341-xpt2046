@@ -41,6 +41,7 @@ class ILI9341Driver:
         if rotation not in self.ROTATE:
             raise ValueError("rotation must be one of 0, 90, 180, 270")
 
+        self.rotation_degrees = int(rotation)
         self.rotation = self.ROTATE[rotation]
 
         self.cs.init(self.cs.OUT, value=1)

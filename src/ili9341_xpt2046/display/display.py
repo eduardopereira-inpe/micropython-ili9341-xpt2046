@@ -14,6 +14,15 @@ def color565(r, g, b):
     return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3)
 
 
+VALID_ROTATIONS = (0, 90, 180, 270)
+ILI9341_MADCTL_TO_DEGREES = {
+    0x48: 0,
+    0x28: 90,
+    0x88: 180,
+    0xE8: 270,
+}
+
+
 class Display(
     ClippingMixin,
     GeometryMixin,
@@ -41,6 +50,23 @@ class Display(
     @property
     def driver(self):
         return self._driver
+
+    @property
+    def rotation(self):
+        if hasattr(self._driver, "rotation_degrees"):
+            value = int(self._driver.rotation_degrees)
+            if value in VALID_ROTATIONS:
+                return value
+            raise ValueError("rotation must be one of 0, 90, 180, 270")
+
+        value = getattr(self._driver, "rotation", 0)
+        if value in VALID_ROTATIONS:
+            return int(value)
+
+        if value in ILI9341_MADCTL_TO_DEGREES:
+            return ILI9341_MADCTL_TO_DEGREES[value]
+
+        raise ValueError("rotation must be one of 0, 90, 180, 270")
 
     def block(self, x0, y0, x1, y1, data):
         self._driver.block(x0, y0, x1, y1, data)

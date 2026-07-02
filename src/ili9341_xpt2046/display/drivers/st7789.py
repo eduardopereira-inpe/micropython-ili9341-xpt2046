@@ -21,6 +21,7 @@ class ST7789Driver:
     WRITE_RAM = const(0x2C)
     MADCTL = const(0x36)
     PIXFMT = const(0x3A)
+    VALID_ROTATIONS = (0, 90, 180, 270)
 
     def __init__(self, spi, cs, dc, rst, width=240, height=240, rotation=0):
         self.spi = spi
@@ -29,7 +30,13 @@ class ST7789Driver:
         self.rst = rst
         self.width = int(width)
         self.height = int(height)
-        self.rotation = int(rotation)
+
+        rotation = int(rotation)
+        if rotation not in self.VALID_ROTATIONS:
+            raise ValueError("rotation must be one of 0, 90, 180, 270")
+
+        self.rotation_degrees = rotation
+        self.rotation = rotation
 
         self.cs.init(self.cs.OUT, value=1)
         self.dc.init(self.dc.OUT, value=0)
